@@ -1,17 +1,9 @@
 import * as React from "react";
-import { Box, Container, Typography } from "@mui/material";
 import "./App.css";
+import MainNavigation from "./components/MainNavigation";
 
 function App() {
-  return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Create React App example with TypeScript
-        </Typography>
-      </Box>
-    </Container>
-  );
+  return <MainNavigation />;
 }
 
 export default App;
