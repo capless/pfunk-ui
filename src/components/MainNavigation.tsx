@@ -6,10 +6,10 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import KeyboardDoubleArrowLeft from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -17,24 +17,22 @@ import { Avatar } from "@mui/material";
 import {
   DashboardOutlined,
   AppRegistrationOutlined,
-  ChangeHistoryOutlined,
-  ContentCopyOutlined,
-  PlayArrowOutlined,
   SettingsOutlined,
 } from "@mui/icons-material";
+import SecondaryNavigation from "./SecondaryNavigation";
 
-const drawerWidth = 260;
+const drawerWidth = 284;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
 }>(({ theme, open }) => ({
   flexGrow: 1,
-  padding: theme.spacing(3),
+  marginTop: 64,
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `-${260}px`,
+  marginLeft: `-${284}px`,
   ...(open && {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
@@ -72,10 +70,10 @@ const AppBar = styled(MuiAppBar, {
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  padding: theme.spacing(0, 1),
+  padding: theme.spacing(0, 2),
+  background: "#F6F6F6",
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
 }));
 
 export default function PersistentDrawerLeft() {
@@ -101,19 +99,21 @@ export default function PersistentDrawerLeft() {
             edge="start"
             sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
-            <MenuIcon />
+            <MenuIcon sx={{ color: "#C4C4C4" }} />
           </IconButton>
-          <Typography
-            noWrap
-            component="div"
+          <Box
             sx={{
+              display: "flex",
+              alignItems: "center",
               justifySelf: "flex-end",
               marginLeft: "auto",
-              color: theme.palette.grey[600],
             }}
           >
-            Edit Content
-          </Typography>
+            <DriveFileRenameOutlineIcon sx={{ mr: 1, color: "#999999" }} />
+            <Typography noWrap component="div">
+              Edit Content
+            </Typography>
+          </Box>
         </Toolbar>
       </AppBar>
 
@@ -126,12 +126,29 @@ export default function PersistentDrawerLeft() {
           alignItems: "center",
           flexDirection: "column",
           height: "100vh",
-          "& .MuiListItem-root": {
-            padding: "1rem",
-            justifyContent: "center",
-          },
-          "& .MuiListItemIcon-root": {
-            justifyContent: "center",
+          "& .MuiList-root": {
+            "& .MuiListItem-root": {
+              padding: "1rem",
+              justifyContent: "center",
+            },
+            "& .MuiListItemIcon-root": {
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "inherit",
+            },
+            "& .MuiListItem-root.Mui-selected": {
+              color: "#30D0A1",
+              backgroundColor: "transparent",
+            },
+            "& .MuiTypography-root": {
+              fontSize: "0.625rem",
+              fontWeight: 700,
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+              color: "inherit",
+            },
           },
         }}
       >
@@ -139,7 +156,7 @@ export default function PersistentDrawerLeft() {
           <ListItem>
             <img alt="pfunk" src="/images/pfunk.png" />
           </ListItem>
-          <ListItem>
+          <ListItem sx={{ mb: 3 }}>
             <Avatar
               sx={{
                 width: 60,
@@ -152,24 +169,16 @@ export default function PersistentDrawerLeft() {
               N
             </Avatar>
           </ListItem>
-          <ListItem button>
+          <ListItem button selected>
             <ListItemIcon>
               <DashboardOutlined />
+              <ListItemText primary="Schema" />
             </ListItemIcon>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <AppRegistrationOutlined />
-            </ListItemIcon>
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ContentCopyOutlined />
-            </ListItemIcon>
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <PlayArrowOutlined />
+              <ListItemText primary="Content" />
             </ListItemIcon>
           </ListItem>
         </List>
@@ -177,12 +186,7 @@ export default function PersistentDrawerLeft() {
         <List>
           <ListItem button>
             <ListItemIcon>
-              <ChangeHistoryOutlined />
-            </ListItemIcon>
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <SettingsOutlined />
+              <SettingsOutlined fontSize="large" />
             </ListItemIcon>
           </ListItem>
         </List>
@@ -190,6 +194,7 @@ export default function PersistentDrawerLeft() {
 
       <Drawer
         sx={{
+          my: 5,
           width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
@@ -203,56 +208,146 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
+        <DrawerHeader sx={{ pt: 4 }}>
+          <IconButton
+            sx={{
+              p: 0,
+              zIndex: 9,
+              border: "1px solid #C4C4C4",
+              borderRadius: "50%",
+              position: "fixed",
+              left: 400,
+              top: 52,
+              color: "#C4C4C4",
+              background: "#ffffff !important",
+            }}
+            onClick={handleDrawerClose}
+          >
+            <KeyboardDoubleArrowLeft />
           </IconButton>
+          <Typography variant="h4" fontWeight={700}>
+            Schema
+          </Typography>
         </DrawerHeader>
 
-        <Divider />
-
-        <List>
-          {["Models", "Components", "Enumerations", "Drafts"].map(
-            (text, index) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
-        </List>
+        <SecondaryNavigation />
       </Drawer>
 
       <Main open={open}>
-        <DrawerHeader />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <Box sx={{ display: "flex", height: "100%" }}>
+          <Box sx={{ p: 3 }}>
+            <Typography paragraph>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Rhoncus dolor purus non enim praesent elementum facilisis leo vel.
+              Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
+              gravida rutrum quisque non tellus. Convallis convallis tellus id
+              interdum velit laoreet id donec ultrices. Odio morbi quis commodo
+              odio aenean sed adipiscing. Amet nisl suscipit adipiscing bibendum
+              est ultricies integer quis. Cursus euismod quis viverra nibh cras.
+              Metus vulputate eu scelerisque felis imperdiet proin fermentum
+              leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt
+              lobortis feugiat vivamus at augue. At augue eget arcu dictum
+              varius duis at consectetur lorem. Velit sed ullamcorper morbi
+              tincidunt. Lorem donec massa sapien faucibus et molestie ac.
+            </Typography>
+            <Typography paragraph>
+              Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
+              ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
+              elementum integer enim neque volutpat ac tincidunt. Ornare
+              suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
+              volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
+              Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
+              ornare massa eget egestas purus viverra accumsan in. In hendrerit
+              gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
+              aliquam sem et tortor. Habitant morbi tristique senectus et.
+              Adipiscing elit duis tristique sollicitudin nibh sit. Ornare
+              aenean euismod elementum nisi quis eleifend. Commodo viverra
+              maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin
+              aliquam ultrices sagittis orci a.
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              p: 2,
+              minWidth: 284,
+              borderLeft: `1px solid ${theme.palette.divider}`,
+            }}
+          >
+            <Typography
+              variant="h4"
+              sx={{
+                p: 1,
+                marginBottom: theme.spacing(1),
+                fontWeight: 500,
+                fontSize: "1.125rem",
+                color: "#333333",
+              }}
+            >
+              Add Fields
+            </Typography>
+
+            <List
+              sx={{
+                p: 0,
+                "& .MuiListItem-root": {
+                  px: 1,
+                  my: 1.5,
+                  border: "1px solid #E4E4E4",
+                  borderRadius: "5px",
+                },
+                "& .MuiBox-root": {
+                  marginRight: theme.spacing(1),
+                  width: 30,
+                  height: 30,
+                  borderRadius: "5px",
+                },
+                "& .MuiListItemText-root": {
+                  my: 0,
+                },
+                "& .MuiListItemText-primary": {
+                  fontWeight: 400,
+                  fontSize: "1rem",
+                  color: "#000000",
+                },
+                "& .MuiListItemText-secondary": {
+                  fontWeight: 400,
+                  fontSize: "0.75rem",
+                  color: "#999999",
+                },
+              }}
+            >
+              <ListItem>
+                <Box sx={{ bgcolor: "#E2F4D4" }}></Box>
+                <ListItemText
+                  primary="Single Line Text"
+                  secondary="Headings and Titles"
+                />
+              </ListItem>
+              <ListItem>
+                <Box sx={{ bgcolor: "#D4E1F4" }}></Box>
+                <ListItemText
+                  primary="Multi Line Text"
+                  secondary="Description"
+                />
+              </ListItem>
+              <ListItem>
+                <Box sx={{ bgcolor: "#E2D4F4" }}></Box>
+                <ListItemText
+                  primary="Slug"
+                  secondary="URL friendly identifier"
+                />
+              </ListItem>
+              <ListItem>
+                <Box sx={{ bgcolor: "#F4E5D4" }}></Box>
+                <ListItemText
+                  primary="Enum"
+                  secondary="Enum friendly identifier"
+                />
+              </ListItem>
+            </List>
+          </Box>
+        </Box>
       </Main>
     </Box>
   );
