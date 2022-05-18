@@ -4,7 +4,7 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   typography: {
     body1: {
-      fontSize: "0.875rem",
+      fontSize: "0.75rem",
       color: "#999999",
     },
   },

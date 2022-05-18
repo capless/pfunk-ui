@@ -12,6 +12,7 @@ import {
   Button,
   TextField,
 } from "@mui/material";
+import CreateCollection from "./CreateCollection";
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -28,6 +29,7 @@ const Accordion = styled((props: AccordionProps) => (
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
   <MuiAccordionSummary {...props} />
 ))(({ theme }) => ({
+  padding: theme.spacing(0, 3),
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
   },
@@ -47,7 +49,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
+  padding: theme.spacing(2, 3),
   "& .title": {
     marginBottom: theme.spacing(1),
     fontWeight: 500,
@@ -92,34 +94,7 @@ export default function SecondaryNavigation() {
           <Typography>Collections</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography className="title">Create collection</Typography>
-          <Box className="buttonBox">
-            <Button fullWidth variant="contained" size="small" sx={{ mr: 1 }}>
-              Settings
-            </Button>
-            <Button disabled fullWidth variant="contained" size="small">
-              Preview URLs
-            </Button>
-          </Box>
-          <Box className="fieldBox">
-            <Typography className="fieldTitle">Display Name</Typography>
-            <Typography className="fieldDesc">
-              Name that will be displayed in pfunk
-            </Typography>
-            <TextField fullWidth variant="filled" />
-          </Box>
-          <Box className="fieldBox">
-            <Typography className="fieldTitle">
-              Description <span className="hint">(optional)</span>
-            </Typography>
-            <Typography className="fieldDesc">
-              Displays a hint for content editors and API users
-            </Typography>
-            <TextField fullWidth multiline rows={3} variant="filled" />
-          </Box>
-          <Button fullWidth variant="contained">
-            Create Collection
-          </Button>
+          <CreateCollection />
         </AccordionDetails>
       </Accordion>
 

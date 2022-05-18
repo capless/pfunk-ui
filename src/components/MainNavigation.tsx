@@ -20,6 +20,7 @@ import {
   SettingsOutlined,
 } from "@mui/icons-material";
 import SecondaryNavigation from "./SecondaryNavigation";
+import AddFields from "./AddFields";
 
 const drawerWidth = 284;
 
@@ -70,7 +71,7 @@ const AppBar = styled(MuiAppBar, {
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  padding: theme.spacing(0, 2),
+  padding: theme.spacing(4, 3, 0, 3),
   background: "#F6F6F6",
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -208,7 +209,7 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader sx={{ pt: 4 }}>
+        <DrawerHeader>
           <IconButton
             sx={{
               p: 0,
@@ -235,118 +236,8 @@ export default function PersistentDrawerLeft() {
 
       <Main open={open}>
         <Box sx={{ display: "flex", height: "100%" }}>
-          <Box sx={{ p: 3 }}>
-            <Typography paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Rhoncus dolor purus non enim praesent elementum facilisis leo vel.
-              Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-              gravida rutrum quisque non tellus. Convallis convallis tellus id
-              interdum velit laoreet id donec ultrices. Odio morbi quis commodo
-              odio aenean sed adipiscing. Amet nisl suscipit adipiscing bibendum
-              est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-              Metus vulputate eu scelerisque felis imperdiet proin fermentum
-              leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt
-              lobortis feugiat vivamus at augue. At augue eget arcu dictum
-              varius duis at consectetur lorem. Velit sed ullamcorper morbi
-              tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-            </Typography>
-            <Typography paragraph>
-              Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-              ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-              elementum integer enim neque volutpat ac tincidunt. Ornare
-              suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-              volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-              Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-              ornare massa eget egestas purus viverra accumsan in. In hendrerit
-              gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-              aliquam sem et tortor. Habitant morbi tristique senectus et.
-              Adipiscing elit duis tristique sollicitudin nibh sit. Ornare
-              aenean euismod elementum nisi quis eleifend. Commodo viverra
-              maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin
-              aliquam ultrices sagittis orci a.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              p: 2,
-              minWidth: 284,
-              borderLeft: `1px solid ${theme.palette.divider}`,
-            }}
-          >
-            <Typography
-              variant="h4"
-              sx={{
-                p: 1,
-                marginBottom: theme.spacing(1),
-                fontWeight: 500,
-                fontSize: "1.125rem",
-                color: "#333333",
-              }}
-            >
-              Add Fields
-            </Typography>
-
-            <List
-              sx={{
-                p: 0,
-                "& .MuiListItem-root": {
-                  px: 1,
-                  my: 1.5,
-                  border: "1px solid #E4E4E4",
-                  borderRadius: "5px",
-                },
-                "& .MuiBox-root": {
-                  marginRight: theme.spacing(1),
-                  width: 30,
-                  height: 30,
-                  borderRadius: "5px",
-                },
-                "& .MuiListItemText-root": {
-                  my: 0,
-                },
-                "& .MuiListItemText-primary": {
-                  fontWeight: 400,
-                  fontSize: "1rem",
-                  color: "#000000",
-                },
-                "& .MuiListItemText-secondary": {
-                  fontWeight: 400,
-                  fontSize: "0.75rem",
-                  color: "#999999",
-                },
-              }}
-            >
-              <ListItem>
-                <Box sx={{ bgcolor: "#E2F4D4" }}></Box>
-                <ListItemText
-                  primary="Single Line Text"
-                  secondary="Headings and Titles"
-                />
-              </ListItem>
-              <ListItem>
-                <Box sx={{ bgcolor: "#D4E1F4" }}></Box>
-                <ListItemText
-                  primary="Multi Line Text"
-                  secondary="Description"
-                />
-              </ListItem>
-              <ListItem>
-                <Box sx={{ bgcolor: "#E2D4F4" }}></Box>
-                <ListItemText
-                  primary="Slug"
-                  secondary="URL friendly identifier"
-                />
-              </ListItem>
-              <ListItem>
-                <Box sx={{ bgcolor: "#F4E5D4" }}></Box>
-                <ListItemText
-                  primary="Enum"
-                  secondary="Enum friendly identifier"
-                />
-              </ListItem>
-            </List>
-          </Box>
+          <Box id="mainBox" sx={{ p: 3, width: "100%" }}></Box>
+          <AddFields />
         </Box>
       </Main>
     </Box>
