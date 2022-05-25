@@ -13,32 +13,9 @@ import {
 } from "@mui/material";
 import CreateField from "./CreateField";
 
-const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className, ...props.classes }} />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.tooltip}`]: {
-    marginTop: "1rem",
-    maxWidth: "none",
-    backgroundColor: theme.palette.common.white,
-    color: "rgba(0, 0, 0, 0.87)",
-    boxShadow: theme.shadows[24],
-    fontSize: 11,
-    "& .MuiTooltip-arrow": {
-      color: theme.palette.common.white,
-      marginTop: "-26rem",
-      marginRight: "-2em",
-      height: "3em",
-      width: "2em",
-      "&:before": {
-        boxShadow: theme.shadows[24],
-      },
-    },
-  },
-}));
-
 export default function AddFields() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleTooltipClose = () => {
     setOpen(false);
@@ -130,6 +107,7 @@ export default function AddFields() {
                 <ListItemText
                   primary="Multi Line Text"
                   secondary="Description"
+                  onClick={handleTooltipOpen}
                 />
               </ListItem>
               <ListItem>
@@ -137,6 +115,7 @@ export default function AddFields() {
                 <ListItemText
                   primary="Slug"
                   secondary="URL friendly identifier"
+                  onClick={handleTooltipOpen}
                 />
               </ListItem>
               <ListItem>
@@ -144,6 +123,7 @@ export default function AddFields() {
                 <ListItemText
                   primary="Enum"
                   secondary="Enum friendly identifier"
+                  onClick={handleTooltipOpen}
                 />
               </ListItem>
             </List>
@@ -153,3 +133,26 @@ export default function AddFields() {
     </ClickAwayListener>
   );
 }
+
+const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className, ...props.classes }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    marginTop: "1rem",
+    maxWidth: "none",
+    backgroundColor: theme.palette.common.white,
+    color: "rgba(0, 0, 0, 0.87)",
+    boxShadow: theme.shadows[24],
+    fontSize: 11,
+    "& .MuiTooltip-arrow": {
+      color: theme.palette.common.white,
+      marginTop: "-26rem",
+      marginRight: "-2em",
+      height: "3em",
+      width: "2em",
+      "&:before": {
+        boxShadow: theme.shadows[24],
+      },
+    },
+  },
+}));

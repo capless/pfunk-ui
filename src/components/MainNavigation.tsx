@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -19,8 +20,10 @@ import {
   AppRegistrationOutlined,
   SettingsOutlined,
 } from "@mui/icons-material";
-import SecondaryNavigation from "./SecondaryNavigation";
-import AddFields from "./AddFields";
+import SchemaNavigation from "./SchemaNavigation";
+import SchemaContent from "./SchemaContent";
+import ContentNavigation from "./ContentNavigation";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 284;
 
@@ -68,17 +71,13 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(4, 3, 0, 3),
-  background: "#F6F6F6",
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-
 export default function PersistentDrawerLeft() {
   const [open, setOpen] = React.useState(true);
+  const location = useLocation();
+  console.log(
+    "file: MainNavigation.tsx ~ line 77 ~ PersistentDrawerLeft ~ location",
+    location
+  );
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -130,6 +129,10 @@ export default function PersistentDrawerLeft() {
             "& .MuiListItem-root": {
               padding: "1rem",
               justifyContent: "center",
+              "& a": {
+                color: "inherit",
+                textDecoration: "none",
+              },
             },
             "& .MuiListItemIcon-root": {
               display: "flex",
@@ -169,17 +172,21 @@ export default function PersistentDrawerLeft() {
               N
             </Avatar>
           </ListItem>
-          <ListItem button selected>
-            <ListItemIcon>
-              <DashboardOutlined />
-              <ListItemText primary="Schema" />
-            </ListItemIcon>
+          <ListItem button selected={location.pathname === "/schema"}>
+            <Link to="/schema">
+              <ListItemIcon>
+                <DashboardOutlined />
+                <ListItemText primary="Schema" />
+              </ListItemIcon>
+            </Link>
           </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <AppRegistrationOutlined />
-              <ListItemText primary="Content" />
-            </ListItemIcon>
+          <ListItem button selected={location.pathname === "/content"}>
+            <Link to="/content">
+              <ListItemIcon>
+                <AppRegistrationOutlined />
+                <ListItemText primary="Content" />
+              </ListItemIcon>
+            </Link>
           </ListItem>
         </List>
 
@@ -208,36 +215,32 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
-          <IconButton
-            sx={{
-              p: 0,
-              zIndex: 9,
-              border: "1px solid #C4C4C4",
-              borderRadius: "50%",
-              position: "fixed",
-              left: 400,
-              top: 52,
-              color: "#C4C4C4",
-              background: "#ffffff !important",
-            }}
-            onClick={handleDrawerClose}
-          >
-            <KeyboardDoubleArrowLeft />
-          </IconButton>
-          <Typography variant="h4" fontWeight={700}>
-            Schema
-          </Typography>
-        </DrawerHeader>
+        <IconButton
+          sx={{
+            p: 0,
+            zIndex: 9,
+            border: "1px solid #C4C4C4",
+            borderRadius: "50%",
+            position: "fixed",
+            left: 400,
+            top: 52,
+            color: "#C4C4C4",
+            background: "#ffffff !important",
+          }}
+          onClick={handleDrawerClose}
+        >
+          <KeyboardDoubleArrowLeft />
+        </IconButton>
 
-        <SecondaryNavigation />
+        <Routes>
+          <Route path="/" element={<SchemaNavigation />} />
+          <Route path="/schema" element={<SchemaNavigation />} />
+          <Route path="/content" element={<ContentNavigation />} />
+        </Routes>
       </Drawer>
 
       <Main open={open}>
-        <Box sx={{ display: "flex", height: "100%" }}>
-          <Box id="mainBox" sx={{ p: 3, width: "100%" }}></Box>
-          <AddFields />
-        </Box>
+        <SchemaContent />
       </Main>
     </Box>
   );
