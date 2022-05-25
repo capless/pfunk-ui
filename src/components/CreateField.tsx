@@ -1,16 +1,13 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import { ArrowDropDown, AddCircleOutline } from "@mui/icons-material";
 import {
-  Accordion as MuiAccordion,
-  AccordionDetails as MuiAccordionDetails,
-  AccordionSummary as MuiAccordionSummary,
-  AccordionProps,
-  AccordionSummaryProps,
   Typography,
   Box,
   Button,
   TextField,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -38,15 +35,30 @@ const StyledBox = styled(Box)(({ theme }) => ({
         fontStyle: "italic",
         color: "#999999",
       },
+      "& .big": {
+        fontSize: "1rem",
+        textTransform: "none",
+      },
     },
     "& .fieldDesc": {
       marginBottom: theme.spacing(1),
       fontSize: "0.75rem",
     },
+    "& .MuiFormControlLabel-root": {
+      alignItems: "flex-start",
+      "& .MuiCheckbox-root": {
+        paddingTop: 0,
+      },
+    },
   },
 }));
 
-export default function CreateField() {
+interface ICreateFieldProps {
+  onClose: () => void;
+}
+
+export default function CreateField(props: ICreateFieldProps) {
+  const { onClose } = props;
   const [showSettings, setShowSettings] = React.useState(true);
   const boxRef = React.useRef();
   const [boxWidth, setBoxWidth] = React.useState(0);
@@ -97,22 +109,133 @@ export default function CreateField() {
             </Typography>
             <TextField fullWidth multiline rows={3} variant="filled" />
           </Box>
+          <Box className="fieldBox">
+            <Typography gutterBottom className="fieldTitle">
+              <span className="big">Field Options</span>
+            </Typography>
+            <FormGroup>
+              <FormControlLabel
+                disableTypography
+                control={<Checkbox />}
+                label={
+                  <Box>
+                    <Typography className="fieldTitle">
+                      Use as title field
+                    </Typography>
+                    <Typography className="fieldDesc">
+                      Displays this field's value instead of the ID in relations
+                    </Typography>
+                  </Box>
+                }
+              />
+            </FormGroup>
+          </Box>
         </Box>
       ) : (
-        <Box sx={{ py: 3 }}>
+        <Box>
           <Box className="fieldBox">
-            <Typography className="fieldDesc">
-              <i>
-                Preview URLs can be added after creating the model in sidebar
-                configuration
-              </i>
-            </Typography>
+            <FormGroup>
+              <FormControlLabel
+                disableTypography
+                control={<Checkbox />}
+                label={
+                  <Box>
+                    <Typography className="fieldTitle">
+                      Make field required
+                    </Typography>
+                    <Typography className="fieldDesc">
+                      Prevents saving an entry if this field is empty
+                    </Typography>
+                  </Box>
+                }
+              />
+            </FormGroup>
+          </Box>
+          <Box className="fieldBox">
+            <FormGroup>
+              <FormControlLabel
+                disableTypography
+                control={<Checkbox />}
+                label={
+                  <Box>
+                    <Typography className="fieldTitle">
+                      Set field as unique
+                    </Typography>
+                    <Typography className="fieldDesc">
+                      Ensures that a multiple entries can't have the same value
+                      for this field
+                    </Typography>
+                  </Box>
+                }
+              />
+            </FormGroup>
+          </Box>
+          <Box className="fieldBox">
+            <FormGroup>
+              <FormControlLabel
+                disableTypography
+                control={<Checkbox />}
+                label={
+                  <Box>
+                    <Typography className="fieldTitle">
+                      Limit character count
+                    </Typography>
+                    <Typography className="fieldDesc">
+                      Specifies a minimum and/or maximum allowed number of
+                      characters
+                    </Typography>
+                  </Box>
+                }
+              />
+            </FormGroup>
+          </Box>
+          <Box className="fieldBox">
+            <FormGroup>
+              <FormControlLabel
+                disableTypography
+                control={<Checkbox />}
+                label={
+                  <Box>
+                    <Typography className="fieldTitle">
+                      Match a specific pattern
+                    </Typography>
+                    <Typography className="fieldDesc">
+                      Only accepts specified regular expression (e.g. e-mail,
+                      URL)
+                    </Typography>
+                  </Box>
+                }
+              />
+            </FormGroup>
+          </Box>
+          <Box className="fieldBox">
+            <FormGroup>
+              <FormControlLabel
+                disableTypography
+                control={<Checkbox />}
+                label={
+                  <Box>
+                    <Typography className="fieldTitle">
+                      Restrict a specific pattern
+                    </Typography>
+                    <Typography className="fieldDesc">
+                      Doesn't accept a specified regular expression
+                    </Typography>
+                  </Box>
+                }
+              />
+            </FormGroup>
           </Box>
         </Box>
       )}
 
       <Box className="buttonBox">
-        <Button variant="contained" color="inherit" sx={{ mr: 1 }}>
+        <Button
+          variant="contained"
+          color="inherit"
+          sx={{ mr: 1 }}
+          onClick={onClose}
+        >
           Cancel
         </Button>
         <Button variant="contained">Create</Button>

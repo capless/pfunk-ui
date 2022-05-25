@@ -1,9 +1,6 @@
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import ListItem from "@mui/material/ListItem";
@@ -17,14 +14,25 @@ import {
 import CreateField from "./CreateField";
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
+  <Tooltip {...props} classes={{ popper: className, ...props.classes }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
+    marginTop: "1rem",
     maxWidth: "none",
     backgroundColor: theme.palette.common.white,
     color: "rgba(0, 0, 0, 0.87)",
-    boxShadow: theme.shadows[1],
+    boxShadow: theme.shadows[24],
     fontSize: 11,
+    "& .MuiTooltip-arrow": {
+      color: theme.palette.common.white,
+      marginTop: "-26rem",
+      marginRight: "-2em",
+      height: "3em",
+      width: "2em",
+      "&:before": {
+        boxShadow: theme.shadows[24],
+      },
+    },
   },
 }));
 
@@ -53,8 +61,9 @@ export default function AddFields() {
           disableFocusListener
           disableHoverListener
           disableTouchListener
-          title={<CreateField />}
-          placement="left"
+          title={<CreateField onClose={handleTooltipClose} />}
+          placement="left-start"
+          classes={{}}
         >
           <Box
             sx={{
