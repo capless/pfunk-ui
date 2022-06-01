@@ -52,34 +52,7 @@ export default function SchemaNavigation() {
           <Typography>Indexes</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography className="title">Create collection</Typography>
-          <Box className="buttonBox">
-            <Button fullWidth variant="contained" size="small" sx={{ mr: 1 }}>
-              Settings
-            </Button>
-            <Button disabled fullWidth variant="contained" size="small">
-              Preview URLs
-            </Button>
-          </Box>
-          <Box className="fieldBox">
-            <Typography className="fieldTitle">Display Name</Typography>
-            <Typography className="fieldDesc">
-              Name that will be displayed in pfunk
-            </Typography>
-            <TextField fullWidth variant="filled" />
-          </Box>
-          <Box className="fieldBox">
-            <Typography className="fieldTitle">
-              Description <span className="hint">(optional)</span>
-            </Typography>
-            <Typography className="fieldDesc">
-              Displays a hint for content editors and API users
-            </Typography>
-            <TextField fullWidth multiline rows={3} variant="filled" />
-          </Box>
-          <Button fullWidth variant="contained">
-            Create Collection
-          </Button>
+          <Typography className="title">Indexes</Typography>
         </AccordionDetails>
       </Accordion>
 
@@ -93,34 +66,7 @@ export default function SchemaNavigation() {
           <Typography>Enumerations</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography className="title">Create collection</Typography>
-          <Box className="buttonBox">
-            <Button fullWidth variant="contained" size="small" sx={{ mr: 1 }}>
-              Settings
-            </Button>
-            <Button disabled fullWidth variant="contained" size="small">
-              Preview URLs
-            </Button>
-          </Box>
-          <Box className="fieldBox">
-            <Typography className="fieldTitle">Display Name</Typography>
-            <Typography className="fieldDesc">
-              Name that will be displayed in pfunk
-            </Typography>
-            <TextField fullWidth variant="filled" />
-          </Box>
-          <Box className="fieldBox">
-            <Typography className="fieldTitle">
-              Description <span className="hint">(optional)</span>
-            </Typography>
-            <Typography className="fieldDesc">
-              Displays a hint for content editors and API users
-            </Typography>
-            <TextField fullWidth multiline rows={3} variant="filled" />
-          </Box>
-          <Button fullWidth variant="contained">
-            Create Collection
-          </Button>
+          <Typography className="title">Enumerations</Typography>
         </AccordionDetails>
       </Accordion>
     </>

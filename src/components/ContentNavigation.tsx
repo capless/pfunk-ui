@@ -11,10 +11,15 @@ import {
   Box,
   Button,
   TextField,
+  List,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
-import CreateCollection from "./CreateCollection";
+import { Link, useLocation } from "react-router-dom";
 
 export default function ContentNavigation() {
+  const location = useLocation();
+
   return (
     <>
       <Typography
@@ -38,7 +43,31 @@ export default function ContentNavigation() {
           <Typography>Default Views</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <CreateCollection />
+          <List
+            sx={{
+              p: 0,
+              "& .MuiTypography-root": {
+                fontSize: "0.875rem",
+              },
+            }}
+          >
+            <Link to="/content/vehicle">
+              <ListItem
+                button
+                selected={location.pathname.includes("/content/vehicle")}
+              >
+                <ListItemText primary="Vehicle" />
+              </ListItem>
+            </Link>
+            <Link to="/content/make">
+              <ListItem
+                button
+                selected={location.pathname.includes("/content/make")}
+              >
+                <ListItemText primary="Make" />
+              </ListItem>
+            </Link>
+          </List>
         </AccordionDetails>
       </Accordion>
 
@@ -52,34 +81,7 @@ export default function ContentNavigation() {
           <Typography>Custom Views</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography className="title">Create collection</Typography>
-          <Box className="buttonBox">
-            <Button fullWidth variant="contained" size="small" sx={{ mr: 1 }}>
-              Settings
-            </Button>
-            <Button disabled fullWidth variant="contained" size="small">
-              Preview URLs
-            </Button>
-          </Box>
-          <Box className="fieldBox">
-            <Typography className="fieldTitle">Display Name</Typography>
-            <Typography className="fieldDesc">
-              Name that will be displayed in pfunk
-            </Typography>
-            <TextField fullWidth variant="filled" />
-          </Box>
-          <Box className="fieldBox">
-            <Typography className="fieldTitle">
-              Description <span className="hint">(optional)</span>
-            </Typography>
-            <Typography className="fieldDesc">
-              Displays a hint for content editors and API users
-            </Typography>
-            <TextField fullWidth multiline rows={3} variant="filled" />
-          </Box>
-          <Button fullWidth variant="contained">
-            Create Collection
-          </Button>
+          <Typography className="title">Custom Views</Typography>
         </AccordionDetails>
       </Accordion>
     </>
@@ -121,7 +123,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2, 3),
+  padding: theme.spacing(0, 3),
   "& .title": {
     marginBottom: theme.spacing(1),
     fontWeight: 500,

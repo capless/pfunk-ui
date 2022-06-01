@@ -21,9 +21,11 @@ import {
   SettingsOutlined,
 } from "@mui/icons-material";
 import SchemaNavigation from "./SchemaNavigation";
-import SchemaContent from "./SchemaContent";
+import SchemaMain from "./SchemaMain";
 import ContentNavigation from "./ContentNavigation";
 import { Link } from "react-router-dom";
+import ContentMain from "./ContentMain";
+import VehicleTable from "./VehicleTable";
 
 const drawerWidth = 284;
 
@@ -32,6 +34,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 }>(({ theme, open }) => ({
   flexGrow: 1,
   marginTop: 64,
+  overflow: "auto",
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -72,12 +75,8 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export default function PersistentDrawerLeft() {
-  const [open, setOpen] = React.useState(true);
   const location = useLocation();
-  console.log(
-    "file: MainNavigation.tsx ~ line 77 ~ PersistentDrawerLeft ~ location",
-    location
-  );
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -100,18 +99,20 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon sx={{ color: "#C4C4C4" }} />
           </IconButton>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifySelf: "flex-end",
-              marginLeft: "auto",
-            }}
-          >
-            <DriveFileRenameOutlineIcon sx={{ mr: 1, color: "#999999" }} />
-            <Typography noWrap component="div">
-              Edit Content
-            </Typography>
+          <Box sx={{ width: "100%", display: "flex" }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifySelf: "flex-end",
+                marginLeft: "auto",
+              }}
+            >
+              <DriveFileRenameOutlineIcon sx={{ mr: 1, color: "#999999" }} />
+              <Typography noWrap component="div">
+                Edit Content
+              </Typography>
+            </Box>
           </Box>
         </Toolbar>
       </AppBar>
@@ -129,10 +130,6 @@ export default function PersistentDrawerLeft() {
             "& .MuiListItem-root": {
               padding: "1rem",
               justifyContent: "center",
-              "& a": {
-                color: "inherit",
-                textDecoration: "none",
-              },
             },
             "& .MuiListItemIcon-root": {
               display: "flex",
@@ -172,22 +169,22 @@ export default function PersistentDrawerLeft() {
               N
             </Avatar>
           </ListItem>
-          <ListItem button selected={location.pathname === "/schema"}>
-            <Link to="/schema">
+          <Link to="/">
+            <ListItem button selected={location.pathname === "/"}>
               <ListItemIcon>
                 <DashboardOutlined />
                 <ListItemText primary="Schema" />
               </ListItemIcon>
-            </Link>
-          </ListItem>
-          <ListItem button selected={location.pathname === "/content"}>
-            <Link to="/content">
+            </ListItem>
+          </Link>
+          <Link to="/content">
+            <ListItem button selected={location.pathname.includes("/content")}>
               <ListItemIcon>
                 <AppRegistrationOutlined />
                 <ListItemText primary="Content" />
               </ListItemIcon>
-            </Link>
-          </ListItem>
+            </ListItem>
+          </Link>
         </List>
 
         <List>
@@ -234,13 +231,17 @@ export default function PersistentDrawerLeft() {
 
         <Routes>
           <Route path="/" element={<SchemaNavigation />} />
-          <Route path="/schema" element={<SchemaNavigation />} />
-          <Route path="/content" element={<ContentNavigation />} />
+          <Route path="content/*" element={<ContentNavigation />} />
         </Routes>
       </Drawer>
 
       <Main open={open}>
-        <SchemaContent />
+        <Routes>
+          <Route path="/" element={<SchemaMain />} />
+          <Route path="content" element={<ContentMain />}>
+            <Route path="vehicle" element={<VehicleTable />} />
+          </Route>
+        </Routes>
       </Main>
     </Box>
   );
