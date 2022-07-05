@@ -8,9 +8,6 @@ import {
   AccordionProps,
   AccordionSummaryProps,
   Typography,
-  Box,
-  Button,
-  TextField,
 } from "@mui/material";
 import CreateCollection from "./CreateCollection";
 

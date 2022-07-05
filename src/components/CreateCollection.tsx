@@ -1,17 +1,5 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
-import { ArrowDropDown, AddCircleOutline } from "@mui/icons-material";
-import {
-  Accordion as MuiAccordion,
-  AccordionDetails as MuiAccordionDetails,
-  AccordionSummary as MuiAccordionSummary,
-  AccordionProps,
-  AccordionSummaryProps,
-  Typography,
-  Box,
-  Button,
-  TextField,
-} from "@mui/material";
+import { Typography, Box, Button, TextField } from "@mui/material";
 
 export default function CreateCollection() {
   const [showSettings, setShowSettings] = React.useState(true);

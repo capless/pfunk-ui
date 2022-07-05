@@ -25,7 +25,8 @@ import SchemaMain from "./SchemaMain";
 import ContentNavigation from "./ContentNavigation";
 import { Link } from "react-router-dom";
 import ContentMain from "./ContentMain";
-import VehicleTable from "./VehicleTable";
+import VehicleTable from "./vehicle/VehicleTable";
+import VehicleDetails from "./vehicle/VehicleDetails";
 
 const drawerWidth = 284;
 
@@ -240,6 +241,7 @@ export default function PersistentDrawerLeft() {
           <Route path="/" element={<SchemaMain />} />
           <Route path="content" element={<ContentMain />}>
             <Route path="vehicle" element={<VehicleTable />} />
+            <Route path="vehicle/:vehicleId" element={<VehicleDetails />} />
           </Route>
         </Routes>
       </Main>
