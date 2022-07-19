@@ -10,6 +10,9 @@ import Paper from "@mui/material/Paper";
 import { IconButton, Pagination, Typography } from "@mui/material";
 import { Delete, Edit, Info, Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { vehicleSlice } from "./vehicleSlice";
 
 function createData(
   stages: string,
@@ -56,9 +59,21 @@ export default function VehicleTable() {
   const theme = useTheme();
   const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
+  const dispatch = useAppDispatch();
+  const vehicles = useAppSelector((state) => state.vehicles.list);
+  console.log(
+    "file: VehicleTable.tsx ~ line 62 ~ VehicleTable ~ vehicles",
+    vehicles
+  );
+
+  React.useEffect(() => {
+    dispatch(vehicleSlice.actions.getList([]));
+  }, [dispatch]);
+
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
+
   return (
     <TableContainer
       component={Paper}
