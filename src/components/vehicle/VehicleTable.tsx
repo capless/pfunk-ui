@@ -10,55 +10,23 @@ import Paper from "@mui/material/Paper";
 import { IconButton, Pagination, Typography } from "@mui/material";
 import { Delete, Edit, Info, Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-
-function createData(
-  stages: string,
-  id: string,
-  createdBy: string,
-  updatedBy: string,
-  make: string,
-  year: number,
-  model: string
-) {
-  return {
-    stages,
-    id,
-    createdBy,
-    updatedBy,
-    make,
-    year,
-    model,
-  };
-}
-
-const rows = [
-  createData(
-    "Published",
-    "cl1prx8u7c7",
-    "Brian Jinwright",
-    "Brian Jinwright",
-    "BMW",
-    2008,
-    "535i"
-  ),
-  createData(
-    "Not Published",
-    "1cl1prx8u7c",
-    "Jason Doe",
-    "Jason Doe",
-    "Honda",
-    2019,
-    "Civic"
-  ),
-];
+import { useQuery } from "@tanstack/react-query";
+import { getVehicles } from "../services/vehicle/api";
 
 export default function VehicleTable() {
   const theme = useTheme();
   const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
+  const { isLoading, isError, data } = useQuery(["getVehicles"], getVehicles);
+
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
+
+  if (isLoading) return <>Loading...</>;
+
+  if (isError) return <>An error has occurred</>;
+
   return (
     <TableContainer
       component={Paper}
@@ -95,7 +63,7 @@ export default function VehicleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {data?.map((row) => (
             <TableRow
               key={row.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
