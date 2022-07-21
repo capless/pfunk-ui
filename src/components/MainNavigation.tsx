@@ -48,6 +48,9 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
     }),
     marginLeft: 0,
   }),
+  "> div": {
+    height: "calc(100vh - 64px)",
+  },
 }));
 
 interface AppBarProps extends MuiAppBarProps {
